@@ -39,10 +39,19 @@ spec:
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: root
+              #value: root  this is hardcoding 
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
 
-            - name: MYSQL_DATABASE # Setting Database Name from a 'ConfigMap'
-              value: vdtechie
+            - name: MYSQL_DATABASE # Setting Database Name/Schema from a 'ConfigMap'
+              #value: vdtechie
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
+                 
           ports:
             - containerPort: 3306
               name: mysql
