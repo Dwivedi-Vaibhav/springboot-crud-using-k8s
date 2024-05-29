@@ -61,7 +61,7 @@ pipeline{
                 script {
                     kubeconfig(credentialsId: 'kubeConfig-29-05', serverUrl: '') {
                         bat """powershell -Command "(Get-Content k8s-app.yaml) -replace 'image: .*', 'image: ${IMAGE_NAME}:${IMAGE_TAG}' | Set-Content k8s-app.yaml" """
-                        bat 'kubectl apply -f k8s-secret.yaml'
+                        bat 'kubectl apply -f k8s-secrets.yaml'
                         bat 'kubectl apply -f k8s-config.yaml'
                         bat 'kubectl apply -f k8s-db.yaml'
                         bat 'kubectl apply -f k8s-app.yaml'
